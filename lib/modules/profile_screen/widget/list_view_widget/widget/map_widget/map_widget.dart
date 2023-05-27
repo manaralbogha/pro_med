@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../../models/information_model.dart';
 import '../../../../../google_map/google_map.dart';
 
 class MapWidget extends StatelessWidget {
-  const MapWidget({super.key});
+  MapWidget({super.key, this.clinic});
+  InformationModel? clinic;
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +16,10 @@ class MapWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return const googleMap(
+              return googleMap(
                 select: false,
+                lat: clinic!.lat,
+                lon: clinic!.long,
               );
             },
           ),

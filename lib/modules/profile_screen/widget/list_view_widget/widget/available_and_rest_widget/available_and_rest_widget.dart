@@ -10,6 +10,15 @@ class AvailableAndRestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? available1 = '';
+    clinic.available!.forEach((key, value) {
+      // if (clinic.available![key]!["form"] != null) {
+      available1 = "$available1 $key $value , ";
+      //}
+
+      return;
+    });
+
     return Container(
       margin: EdgeInsets.only(
         top: 12.h,
@@ -31,8 +40,8 @@ class AvailableAndRestWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const RowWidget(
-            text: "Available",
+          RowWidget(
+            text: available1.toString(),
           ),
           Divider(
             color: const Color(0xffE0E0E0),

@@ -7,11 +7,11 @@ import 'package:pro_med/shared/components/app_bar_widget/app_bar_widget.dart';
 
 import '../../controller/cubit/cubit.dart';
 import '../../controller/cubit/states.dart';
-import '../../models/information_model.dart';
+
 import '../../shared/components/company_iformation_widget/company_iformation_widget.dart';
 import '../../shared/components/text_form_filed_widget.dart';
 import '../google_map/google_map.dart';
-import '../profile_screen/profile_screen.dart';
+
 import 'widget/button_widget/button_widget.dart';
 import 'widget/custome_drop_down_list.dart';
 
@@ -189,7 +189,7 @@ class AddClinicScreen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return const googleMap(
+                                    return googleMap(
                                       select: true,
                                     );
                                   },
@@ -197,6 +197,8 @@ class AddClinicScreen extends StatelessWidget {
                               ).then((dynamic value) {
                                 cubit.lat = value['lat'];
                                 cubit.long = value['long'];
+                                print(cubit.lat);
+                                print(cubit.long);
                               });
                             },
                             child: Container(

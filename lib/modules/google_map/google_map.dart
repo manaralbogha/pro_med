@@ -1,77 +1,127 @@
 // ignore_for_file: camel_case_types, prefer_const_declarations, prefer_final_fields, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
 class googleMap extends StatefulWidget {
-  const googleMap({super.key, required this.select});
+  googleMap({super.key, required this.select, this.lat, this.lon});
   final bool select;
+  var lat;
+  var lon;
 
   @override
   State<googleMap> createState() => _googleMapState();
 }
 
 class _googleMapState extends State<googleMap> {
-  static final LatLng _center =
-      const LatLng(33.53264470169847, 36.29320286214352);
-  final Completer<GoogleMapController> _controller = Completer();
+  Position? cl;
 
-  Set<Marker> _markers = {
-    Marker(
-      markerId: MarkerId('1'),
-      position: LatLng(33.53264470169847, 36.29320286214352),
-    )
-  };
+  CameraPosition? _kGooglePlex;
+  Set<Marker>? _markers;
 
-  LatLng _currentMapPosition = _center;
+  Future getPosition() async {
+    bool services;
+    LocationPermission permeation;
 
-  void _onCameraMove(CameraPosition position) {
-    _currentMapPosition = position.target;
+    services = await Geolocator.isLocationServiceEnabled();
+    print(services);
+    if (services == false) {
+      // do any thing if you wont;
+    }
+
+    permeation = await Geolocator.checkPermission();
+    if (permeation == LocationPermission.denied) {
+      permeation = await Geolocator.requestPermission();
+    }
+    print(permeation);
   }
 
-  // var location;
-  double? long;
-  double? lat;
+  Future<void> getLatAndLong() async {
+    cl = await Geolocator.getCurrentPosition().then((value) => value);
+    widget.lat = cl!.latitude;
+    widget.lon = cl!.longitude;
+    location['lat'] = widget.lat;
+    location['long'] = widget.lon;
+    _kGooglePlex = CameraPosition(
+      target: LatLng(widget.lat, widget.lon),
+      zoom: 16.4746,
+    );
+    _markers = {
+      Marker(
+        markerId: MarkerId('1'),
+        position: LatLng(cl!.latitude, cl!.longitude),
+      )
+    };
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    if (widget.select == true) {
+      getPosition();
+      getLatAndLong();
+    }
+    super.initState();
+  }
+
   Map<String, dynamic> location = {};
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
 
   @override
   Widget build(BuildContext context) {
+    if (widget.select == false) {
+      _kGooglePlex = CameraPosition(
+        target: LatLng(widget.lat, widget.lon),
+        zoom: 16.4746,
+      );
+      _markers = {
+        Marker(
+          markerId: MarkerId('1'),
+          position: LatLng(widget.lat, widget.lon),
+        )
+      };
+      setState(() {});
+    }
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
-          Expanded(
-            child: GoogleMap(
-              onTap: (val) {
-                lat = val.latitude;
-                location['lat'] = lat;
+          _kGooglePlex == null
+              ? Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : Expanded(
+                  child: GoogleMap(
+                    onTap: (val) {
+                      if (widget.select == true) {
+                        widget.lat = val.latitude;
+                        location['lat'] = widget.lat;
 
-                long = val.longitude;
-                location['long'] = long;
-                if (widget.select == true) {
-                  setState(() {
-                    _markers.clear();
-                    _markers.add(Marker(
-                        markerId: MarkerId('1'),
-                        position: LatLng(lat!, long!),
-                        onTap: () {},
-                        draggable: true));
-                  });
-                }
-              },
-              markers: _markers,
-              onCameraMove: _onCameraMove,
-              mapType: MapType.normal,
-              initialCameraPosition: CameraPosition(
-                target: _currentMapPosition,
-                zoom: 12,
-              ),
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-            ),
-          ),
+                        widget.lon = val.longitude;
+                        location['long'] = widget.lon;
+                        setState(() {
+                          _markers!.clear();
+                          _markers!.add(Marker(
+                              markerId: MarkerId('1'),
+                              position: LatLng(widget.lat!, widget.lon!),
+                              onTap: () {},
+                              draggable: true));
+                        });
+                      }
+                    },
+                    mapType: MapType.normal,
+                    markers: _markers as Set<Marker>,
+                    initialCameraPosition: _kGooglePlex as CameraPosition,
+                    onMapCreated: (GoogleMapController controller) {
+                      _controller.complete(controller);
+                    },
+                  ),
+                ),
           if (widget.select == true)
             Container(
               padding: EdgeInsets.all(6),
@@ -82,7 +132,7 @@ class _googleMapState extends State<googleMap> {
                   'Save Location',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   Navigator.pop(context, location);
                 },
               ),

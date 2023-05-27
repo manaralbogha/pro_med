@@ -59,8 +59,8 @@ class HomeCubit extends Cubit<HomeStates> {
   String? selectedCity;
   List<InformationModel> clinics = [
     InformationModel(),
-    InformationModel(),
-    InformationModel()
+    // InformationModel(),
+    // InformationModel()
   ];
 
   void addClinic() {
@@ -79,6 +79,11 @@ class HomeCubit extends Cubit<HomeStates> {
         available: dayTime,
       ),
     );
+    print(clinics);
     emit(AddClinicState());
+  }
+
+  void add() {
+    emit(AddState());
   }
 }

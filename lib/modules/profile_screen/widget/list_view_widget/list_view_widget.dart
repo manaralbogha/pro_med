@@ -30,7 +30,7 @@ class ListViewWidget extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const MapWidget(),
+                      MapWidget(clinic: clinics[index]),
                       SizedBox(
                         width: 12.w,
                       ),
@@ -51,7 +51,7 @@ class ListViewWidget extends StatelessWidget {
                     height: 8.h,
                   ),
                   Text(
-                    "Or Book by Number: 0934487928",
+                    "Or Book by Number: ${clinics[index].phoneNumber}",
                     style: TextStyle(
                       color: const Color(0xff0094D9),
                       fontSize: 12.sp,

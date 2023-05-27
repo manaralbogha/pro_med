@@ -14,36 +14,26 @@ class InformationModel {
   final Map<String, Map<String, String>>? available;
   // final Map<String, Map<String, String>>? rest;
 
-  InformationModel({
-    this.clinicName = "Clinic 1",
-    this.specialty = "Dental",
-    this.country = "Syria",
-    this.city = "Damascus",
-    this.region = "Midan",
-    this.district = "Midan",
-    this.street = "Korniesh",
-    this.phoneNumber = "0934487928",
-    this.lat = 33.45465656,
-    this.long = 32.464564664,
-    this.available,
-    // = const [
-    //   {"sunday": Time(from: "9:00", to: "5:00")},
-    //   {"monday": Time(from: "9:00", to: "5:00")},
-    //   {"tuesday": Time(from: "9:00", to: "5:00")},
-    //   {"wednesday": Time(from: "9:00", to: "5:00")},
-    //   {"thursday": Time(from: "9:00", to: "5:00")},
-    //   {"saturday": Time(from: "9:00", to: "5:00")},
-    // ],
-    // this.rest,
-    // = const [
-    //   {"sunday": Time(from: "9:00", to: "5:00")},
-    //   {"monday": Time(from: "9:00", to: "5:00")},
-    //   {"tuesday": Time(from: "9:00", to: "5:00")},
-    //   {"wednesday": Time(from: "9:00", to: "5:00")},
-    //   {"thursday": Time(from: "9:00", to: "5:00")},
-    //   {"saturday": Time(from: "9:00", to: "5:00")},
-    // ],
-  });
+  InformationModel(
+      {this.clinicName = "Clinic 1",
+      this.specialty = "Dental",
+      this.country = "Syria",
+      this.city = "Damascus",
+      this.region = "Midan",
+      this.district = "Midan",
+      this.street = "Korniesh",
+      this.phoneNumber = "0934487928",
+      this.lat = 33.5040050747216,
+      this.long = 36.287138387560844,
+      this.available = const {
+        "Saturday": {"from": "1", "to": "2"},
+        "Sunday": {"from": "3", "to": "4"},
+        "Monday": {"from": "5", "to": "6"},
+        "Tuesday": {"from": "7", "to": "8"},
+        "Wednesday": {"from": "9", "to": "10"},
+        "Thursday": {"from": "11", "to": "12"},
+        "Friday": {"from": "13", "to": "14"}
+      }});
 }
 
 class Time {

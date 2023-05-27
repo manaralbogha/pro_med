@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../controller/cubit/cubit.dart';
 import '../../../../controller/cubit/states.dart';
-import '../../../profile_screen/profile_screen.dart';
 
 class ButtonWidget extends StatelessWidget {
   const ButtonWidget({super.key});
@@ -38,7 +38,14 @@ class ButtonWidget extends StatelessWidget {
                     cubit.lat != null &&
                     cubit.long != null) {
                   cubit.addClinic();
-                  Navigator.pop(context);
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/',
+                        arguments: {
+                          'clinics': cubit.clinics,
+                        },
+                        (Route<dynamic> route) => false);
+                  });
                 } else {
                   const snackBar = SnackBar(
                     content: Text('Please enter all information',
@@ -49,14 +56,6 @@ class ButtonWidget extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               }
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) {
-              //       return const ProfileScreen();
-              //     },
-              //   ),
-              // );
 
               print(cubit.clinics);
             },

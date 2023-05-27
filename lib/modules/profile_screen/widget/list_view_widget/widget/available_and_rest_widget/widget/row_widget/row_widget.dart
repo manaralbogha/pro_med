@@ -10,15 +10,17 @@ class RowWidget extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 230.w,
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
+          width: 225.w,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+              ),
+              maxLines: 1,
             ),
-            maxLines: 1,
-            overflow: TextOverflow.fade,
           ),
         ),
         InkWell(

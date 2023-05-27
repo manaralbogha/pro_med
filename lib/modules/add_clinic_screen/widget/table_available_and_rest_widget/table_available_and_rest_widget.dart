@@ -34,151 +34,155 @@ class TableAvailableAndRestWidget extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Days",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff828282),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Days",
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff828282),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 138.w,
-                        ),
-                        Text(
-                          "From",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff828282),
+                          SizedBox(
+                            width: 138.w,
                           ),
-                        ),
-                        SizedBox(
-                          width: 158.w,
-                        ),
-                        Text(
-                          "to",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff828282),
+                          Text(
+                            "From",
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff828282),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List.generate(
-                        cubit.day.length,
-                        (index) => Container(
-                          margin: EdgeInsets.only(bottom: 16.h),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 96.w,
-                                child: Text(
-                                  cubit.day[index],
-                                  style: TextStyle(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500),
+                          SizedBox(
+                            width: 158.w,
+                          ),
+                          Text(
+                            "to",
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff828282),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(
+                          cubit.day.length,
+                          (index) => Container(
+                            margin: EdgeInsets.only(bottom: 16.h),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 96.w,
+                                  child: Text(
+                                    cubit.day[index],
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 72.w,
-                              ),
-                              CustomDropDownList(
-                                hintText: "-",
-                                items: cubit.time,
-                                selectedOption: cubit.setFrom,
-                                typeTime: "from",
-                                index: index,
-                                // cubit
-                                //     .dayTime[cubit.day[index]],
-                                width: 120.w,
-                              ),
-                              SizedBox(
-                                width: 72.w,
-                              ),
-                              CustomDropDownList(
-                                hintText: "-",
-                                items: cubit.time,
-                                selectedOption: cubit.setTo,
-                                index: index,
-                                typeTime: "to",
-                                // cubit
-                                //   .dayTime[cubit.day[index]],
-                                width: 120.w,
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 72.w,
+                                ),
+                                CustomDropDownList(
+                                  hintText: "-",
+                                  items: cubit.time,
+                                  selectedOption: cubit.setFrom,
+                                  typeTime: "from",
+                                  index: index,
+                                  // cubit
+                                  //     .dayTime[cubit.day[index]],
+                                  width: 120.w,
+                                ),
+                                SizedBox(
+                                  width: 72.w,
+                                ),
+                                CustomDropDownList(
+                                  hintText: "-",
+                                  items: cubit.time,
+                                  selectedOption: cubit.setTo,
+                                  index: index,
+                                  typeTime: "to",
+                                  // cubit
+                                  //   .dayTime[cubit.day[index]],
+                                  width: 120.w,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 SizedBox(
                   width: 72.h,
                 ),
-                Column(
-                  children: [
-                    Text(
-                      "Rest Time",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff828282),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Rest Time",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff828282),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List.generate(
-                        cubit.day.length,
-                        (index) => Container(
-                          margin: EdgeInsets.only(bottom: 16.h),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 72.w,
-                              ),
-                              CustomDropDownList(
-                                hintText: "From",
-                                items: cubit.time,
-                                selectedOption: cubit.setFrom,
-                                typeTime: "from",
-                                index: index,
-                                // cubit
-                                //     .dayTime[cubit.day[index]],
-                                width: 120.w,
-                              ),
-                              SizedBox(
-                                width: 8.w,
-                              ),
-                              CustomDropDownList(
-                                hintText: "to",
-                                items: cubit.time,
-                                selectedOption: cubit.setTo,
-                                index: index,
-                                typeTime: "to",
-                                // cubit
-                                //   .dayTime[cubit.day[index]],
-                                width: 120.w,
-                              ),
-                            ],
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(
+                          cubit.day.length,
+                          (index) => Container(
+                            margin: EdgeInsets.only(bottom: 16.h),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 72.w,
+                                ),
+                                CustomDropDownList(
+                                  hintText: "From",
+                                  items: cubit.time,
+                                  selectedOption: cubit.setFrom,
+                                  typeTime: "from",
+                                  index: index,
+                                  // cubit
+                                  //     .dayTime[cubit.day[index]],
+                                  width: 120.w,
+                                ),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                                CustomDropDownList(
+                                  hintText: "to",
+                                  items: cubit.time,
+                                  selectedOption: cubit.setTo,
+                                  index: index,
+                                  typeTime: "to",
+                                  // cubit
+                                  //   .dayTime[cubit.day[index]],
+                                  width: 120.w,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
